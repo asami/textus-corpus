@@ -1,0 +1,6 @@
+apps:
+  - name: textus-corpus
+    path: /web/textus-corpus
+    kind: static-form
+    root: /web/textus-corpus
+    route: /web/{component}/textus-corpus

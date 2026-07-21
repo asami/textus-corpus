@@ -1,0 +1,434 @@
+# COMPONENT
+
+## Corpus
+
+### PACKAGE
+
+org.simplemodeling.textus.corpus
+
+### DESCRIPTION
+
+Textus Corpus manages immutable, versioned case collections. A corpus contains
+reviewed inputs, deterministic fixture references, and expected evidence
+references, but never provider, model, experiment arm, execution outcome, or
+metric data.
+
+# SERVICE
+
+## CorpusRegistry
+
+### DESCRIPTION
+
+Publishes and resolves immutable corpus revisions and their cases. Textus AI
+and Textus Experiment consume a revision by its id; they do not mutate it.
+
+### OPERATION
+
+#### publishCorpus
+
+##### DESCRIPTION
+
+Creates one immutable corpus revision. A later correction is published as a
+new revision rather than changing a reviewed revision in place.
+
+##### TYPE
+
+COMMAND
+
+##### INPUT
+
+###### TYPE
+PublishCorpus
+
+##### OUTPUT
+
+###### TYPE
+PublishCorpusResult
+
+##### IMPLEMENTATION
+entity-create
+
+##### ENTITY
+CorpusRevision
+
+#### registerCorpusCase
+
+##### DESCRIPTION
+
+Registers one reviewed case in a corpus revision. The case references sanitized
+fixture and evidence resources; it does not embed credentials or raw provider
+payloads.
+
+##### TYPE
+
+COMMAND
+
+##### INPUT
+
+###### TYPE
+RegisterCorpusCase
+
+##### OUTPUT
+
+###### TYPE
+RegisterCorpusCaseResult
+
+##### IMPLEMENTATION
+entity-create
+
+##### ENTITY
+CorpusCase
+
+#### searchCorpusRevisions
+
+##### DESCRIPTION
+
+Finds published corpus revisions by stable corpus key, revision, or text.
+
+##### TYPE
+
+QUERY
+
+##### INPUT
+
+###### TYPE
+SearchCorpusRevisions
+
+##### OUTPUT
+
+###### TYPE
+SearchCorpusRevisionsResult
+
+##### IMPLEMENTATION
+entity-search
+
+##### ENTITY
+CorpusRevision
+
+#### getCorpusRevision
+
+##### DESCRIPTION
+
+Gets one immutable corpus revision by its canonical entity id. This operation
+is the component boundary used by consumers that retain a revision reference.
+
+##### TYPE
+
+QUERY
+
+##### INPUT
+
+###### TYPE
+GetCorpusRevision
+
+##### OUTPUT
+
+###### TYPE
+GetCorpusRevisionResult
+
+#### getCorpusCase
+
+##### DESCRIPTION
+
+Gets one immutable corpus case by its canonical entity id. Consumers use the
+returned revision id to verify that a case belongs to their fixed population.
+
+##### TYPE
+
+QUERY
+
+##### INPUT
+
+###### TYPE
+GetCorpusCase
+
+##### OUTPUT
+
+###### TYPE
+GetCorpusCaseResult
+
+#### listCorpusCases
+
+##### DESCRIPTION
+
+Lists cases from one immutable corpus revision. Filters are only case metadata;
+runtime profile and experiment selection remain outside this component.
+
+##### TYPE
+
+QUERY
+
+##### INPUT
+
+###### TYPE
+ListCorpusCases
+
+##### OUTPUT
+
+###### TYPE
+ListCorpusCasesResult
+
+##### IMPLEMENTATION
+entity-search
+
+##### ENTITY
+CorpusCase
+
+# ENTITY
+
+## CorpusRevision
+
+### DESCRIPTION
+
+One immutable, reviewable version of a named corpus.
+
+### Attribute
+
+| name        | type     | multiplicity |
+|-------------+----------+--------------|
+| id          | entityid | 1            |
+| corpusKey   | CorpusKey | 1           |
+| revision    | int      | 1            |
+| name        | name     | 1            |
+| kind        | CorpusKind | 1          |
+| description | description | ?         |
+| sourceDigest | CorpusSourceDigest | 1 |
+
+## CorpusCase
+
+### DESCRIPTION
+
+A reviewed input case within exactly one corpus revision. References point to
+sanitized resources whose content is resolved by the configured corpus store.
+
+### Attribute
+
+| name                      | type     | multiplicity |
+|---------------------------+----------+--------------|
+| id                        | entityid | 1            |
+| corpusRevisionId          | entityid | 1            |
+| caseKey                   | CorpusCaseKey | 1         |
+| applicationPurpose        | ApplicationPurpose | 1    |
+| difficulty                | CorpusDifficulty | ?       |
+| fixtureReference          | CorpusFixtureReference | 1 |
+| expectedEvidenceReference | CorpusEvidenceReference | ? |
+| tags                      | CorpusTag | *           |
+
+# DATATYPE
+
+## CorpusKey
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusKind
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusSourceDigest
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusCaseKey
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## ApplicationPurpose
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusDifficulty
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusFixtureReference
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusEvidenceReference
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## CorpusSearchText
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+# VALUE
+
+## PublishCorpus
+
+- input-kind :: COMMAND
+
+### Attribute
+
+| name         | type   | multiplicity |
+|--------------+--------+--------------|
+| corpusKey    | CorpusKey | 1         |
+| revision     | int    | 1            |
+| name         | name   | 1            |
+| kind         | CorpusKind | 1        |
+| description  | description | ?       |
+| sourceDigest | CorpusSourceDigest | 1 |
+
+## RegisterCorpusCase
+
+- input-kind :: COMMAND
+
+### Attribute
+
+| name                      | type     | multiplicity |
+|---------------------------+----------+--------------|
+| corpusRevisionId          | entityid | 1            |
+| caseKey                   | CorpusCaseKey | 1         |
+| applicationPurpose        | ApplicationPurpose | 1    |
+| difficulty                | CorpusDifficulty | ?       |
+| fixtureReference          | CorpusFixtureReference | 1 |
+| expectedEvidenceReference | CorpusEvidenceReference | ? |
+| tags                      | CorpusTag | *           |
+
+## CorpusTag
+
+### DESCRIPTION
+
+A normalized tag assigned to a corpus case for deterministic metadata selection.
+
+### Attribute
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## SearchCorpusRevisions
+
+- input-kind :: QUERY
+
+### Attribute
+
+| name      | type   | multiplicity |
+|-----------+--------+--------------|
+| corpusKey | CorpusKey | ?         |
+| revision  | int    | ?            |
+| text      | CorpusSearchText | ?  |
+| offset    | int    | ?            |
+| limit     | int    | ?            |
+
+## ListCorpusCases
+
+- input-kind :: QUERY
+
+### Attribute
+
+| name               | type     | multiplicity |
+|--------------------+----------+--------------|
+| corpusRevisionId   | entityid | 1            |
+| applicationPurpose | ApplicationPurpose | ? |
+| difficulty         | CorpusDifficulty | ?  |
+| tag                | CorpusTag | ?         |
+| offset             | int      | ?            |
+| limit              | int      | ?            |
+
+## GetCorpusRevision
+
+- input-kind :: QUERY
+
+### Attribute
+
+| name             | type     | multiplicity |
+|------------------+----------+--------------|
+| corpusRevisionId | entityid | 1            |
+
+## GetCorpusCase
+
+- input-kind :: QUERY
+
+### Attribute
+
+| name         | type     | multiplicity |
+|--------------+----------+--------------|
+| corpusCaseId | entityid | 1            |
+
+## PublishCorpusResult
+
+### Attribute
+
+| name   | type     | multiplicity |
+|--------+----------+--------------|
+| id     | entityid | 1            |
+| corpusKey | CorpusKey | 1        |
+| revision  | int    | 1           |
+
+## RegisterCorpusCaseResult
+
+### Attribute
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| caseKey | CorpusCaseKey | 1     |
+
+## SearchCorpusRevisionsResult
+
+### Attribute
+
+| name  | type           | multiplicity |
+|-------+----------------+--------------|
+| items | CorpusRevision | *            |
+
+## GetCorpusRevisionResult
+
+### Attribute
+
+| name | type           | multiplicity |
+|------+----------------+--------------|
+| item | CorpusRevision | 1            |
+
+## GetCorpusCaseResult
+
+### Attribute
+
+| name | type       | multiplicity |
+|------+------------+--------------|
+| item | CorpusCase | 1            |
+
+## ListCorpusCasesResult
+
+### Attribute
+
+| name  | type       | multiplicity |
+|-------+------------+--------------|
+| items | CorpusCase | *            |

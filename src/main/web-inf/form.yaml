@@ -1,0 +1,18 @@
+expose:
+  textus-corpus.corpus-registry.publish-corpus: protected
+  textus-corpus.corpus-registry.get-corpus-revision: public
+form:
+  textus-corpus.corpus-registry.publish-corpus:
+    enabled: true
+    successRedirect: /web/${component}/admin/entities/corpus-revision/${result.id}
+    stayOnError: true
+    controls:
+      description:
+        type: textarea
+  textus-corpus.corpus-registry.get-corpus-revision:
+    enabled: true
+    successRedirect: /web/${component}/admin/entities/corpus-revision
+    stayOnError: true
+admin:
+  entity.corpus-revision:
+    totalCount: optional

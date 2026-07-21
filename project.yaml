@@ -1,0 +1,46 @@
+project:
+  name: "textus-corpus"
+  title: "Textus Corpus"
+  kind: car
+  organization: "org.textus"
+  scalaPackage: "org.simplemodeling.textus.corpus"
+  component:
+    name: "textus-corpus"
+    className: "Corpus"
+    displayName: "Textus Corpus"
+    version: "0.1.0-SNAPSHOT"
+
+build:
+  scalaVersion: "3.3.8"
+  cozyVersion: "0.3.0-SNAPSHOT"
+  dependencies:
+    compile:
+      - "org.goldenport::goldenport-cncf:0.5.1-SNAPSHOT"
+    test:
+      - "org.scalatest::scalatest:3.2.19"
+
+publication:
+  source_manifest:
+    enabled: false
+
+packaging:
+  kind: car
+  car:
+    abi:
+      dependencies: []
+    manifest_metadata:
+      boundedContext: "corpus"
+      domain: "corpus-management"
+    runtime:
+      cncf:
+        minimum: "0.5.1-SNAPSHOT"
+        excluded: []
+        tested:
+          - "0.5.1-SNAPSHOT"
+
+warehouse:
+  repository_artifacts:
+    include:
+      - car
+    modules:
+      - "textus-corpus"
