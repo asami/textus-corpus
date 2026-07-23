@@ -7,16 +7,18 @@ import org.simplemodeling.textus.corpus.CorpusComponent
 import org.goldenport.cncf.component.{Component, ComponentCreate, ComponentId}
 import org.goldenport.cncf.directive.Query
 import org.goldenport.cncf.entity.{EntityQuery, EntitySearchScope}
+import org.goldenport.cncf.spi.{SpiProvider, SpiProviderComponent}
 import org.goldenport.cncf.unitofwork.ExecUowM
 import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.record.Record
 import org.simplemodeling.model.datatype.EntityId
 import org.simplemodeling.textus.corpus.entity.{CorpusCase, CorpusRevision}
 import org.simplemodeling.textus.corpus.entity.create.{CorpusCase as CorpusCaseCreate, CorpusRevision as CorpusRevisionCreate}
+import org.simplemodeling.textus.corpus.evaluation.OfflineCorpusEvaluationSinkProvider
 
 /*
  * @since   Jul. 21, 2026
- * @version Jul. 21, 2026
+ * @version Jul. 24, 2026
  * @author  ASAMI, Tomoharu
  */
 final class ComponentFactory extends Component.BundleFactory {
@@ -45,9 +47,12 @@ abstract class CorpusParticipantFactoryBase extends CorpusComponent.Factory {
   override val entity: CorpusComponent.EntityServiceFactory = DefaultEntityServiceFactory()
 }
 
-final class CorpusPrimaryComponent extends CorpusComponent {
+final class CorpusPrimaryComponent extends CorpusComponent with SpiProviderComponent {
   override def mcpReadyServices: Set[String] =
     Set.empty
+
+  def spiProviders: Vector[SpiProvider[?]] =
+    Vector(OfflineCorpusEvaluationSinkProvider())
 }
 
 object CorpusPrimaryFactory extends CorpusParticipantFactoryBase with Component.PrimaryComponentFactory {
