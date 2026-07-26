@@ -18,7 +18,7 @@ import org.simplemodeling.textus.corpus.evaluation.OfflineCorpusEvaluationSinkPr
 
 /*
  * @since   Jul. 21, 2026
- * @version Jul. 24, 2026
+ * @version Jul. 27, 2026
  * @author  ASAMI, Tomoharu
  */
 final class ComponentFactory extends Component.BundleFactory {
@@ -126,7 +126,7 @@ private trait CorpusRegistryActionSupport {
   protected final def required_entity_id(record: Record, name: String): Consequence[EntityId] =
     record.getAs[EntityId](name)
       .map(Consequence.success)
-      .getOrElse(Consequence.failRecordNotFound(name, record))
+      .getOrElse(Consequence.recordNotFound(name, record))
 
   protected final def page[A](items: Vector[A], record: Record): Vector[A] = {
     val offset = record.getInt("offset").getOrElse(0).max(0)
