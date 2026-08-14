@@ -1,0 +1,454 @@
+{
+  "format" : "cozy.car.abi-manifest.v2",
+  "component" : {
+    "namespace" : "org.simplemodeling.textus",
+    "id" : "Corpus",
+    "version" : "0.1.1-SNAPSHOT"
+  },
+  "abi" : {
+    "version" : 1,
+    "exports" : {
+      "components" : [ {
+        "namespace" : "org.simplemodeling.textus",
+        "id" : "Corpus"
+      } ],
+      "services" : [ {
+        "name" : "CorpusRegistry"
+      } ],
+      "operations" : [ {
+        "service" : "CorpusRegistry",
+        "name" : "publishCorpus",
+        "kind" : "COMMAND",
+        "input" : "PublishCorpus",
+        "output" : "PublishCorpusResult"
+      }, {
+        "service" : "CorpusRegistry",
+        "name" : "registerCorpusCase",
+        "kind" : "COMMAND",
+        "input" : "RegisterCorpusCase",
+        "output" : "RegisterCorpusCaseResult"
+      }, {
+        "service" : "CorpusRegistry",
+        "name" : "searchCorpusRevisions",
+        "kind" : "QUERY",
+        "input" : "SearchCorpusRevisions",
+        "output" : "SearchCorpusRevisionsResult"
+      }, {
+        "service" : "CorpusRegistry",
+        "name" : "getCorpusRevision",
+        "kind" : "QUERY",
+        "input" : "GetCorpusRevision",
+        "output" : "GetCorpusRevisionResult"
+      }, {
+        "service" : "CorpusRegistry",
+        "name" : "getCorpusCase",
+        "kind" : "QUERY",
+        "input" : "GetCorpusCase",
+        "output" : "GetCorpusCaseResult"
+      }, {
+        "service" : "CorpusRegistry",
+        "name" : "listCorpusCases",
+        "kind" : "QUERY",
+        "input" : "ListCorpusCases",
+        "output" : "ListCorpusCasesResult"
+      } ],
+      "types" : [ {
+        "name" : "CorpusKey",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusKind",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusSourceDigest",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusCaseKey",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "ApplicationPurpose",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusDifficulty",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusFixtureReference",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusEvidenceReference",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusSearchText",
+        "kind" : "datatype",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "PublishCorpus",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusKey",
+          "type" : "CorpusKey",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "revision",
+          "type" : "int",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "name",
+          "type" : "name",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "kind",
+          "type" : "CorpusKind",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "description",
+          "type" : "description",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "sourceDigest",
+          "type" : "CorpusSourceDigest",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "RegisterCorpusCase",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusRevisionId",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "caseKey",
+          "type" : "CorpusCaseKey",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "applicationPurpose",
+          "type" : "ApplicationPurpose",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "difficulty",
+          "type" : "CorpusDifficulty",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "fixtureReference",
+          "type" : "CorpusFixtureReference",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "expectedEvidenceReference",
+          "type" : "CorpusEvidenceReference",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "tags",
+          "type" : "CorpusTag",
+          "multiplicity" : "*",
+          "required" : false
+        } ]
+      }, {
+        "name" : "CorpusTag",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "value",
+          "type" : "string",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "SearchCorpusRevisions",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusKey",
+          "type" : "CorpusKey",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "revision",
+          "type" : "int",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "text",
+          "type" : "CorpusSearchText",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "offset",
+          "type" : "int",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "limit",
+          "type" : "int",
+          "multiplicity" : "?",
+          "required" : false
+        } ]
+      }, {
+        "name" : "ListCorpusCases",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusRevisionId",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "applicationPurpose",
+          "type" : "ApplicationPurpose",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "difficulty",
+          "type" : "CorpusDifficulty",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "tag",
+          "type" : "CorpusTag",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "offset",
+          "type" : "int",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "limit",
+          "type" : "int",
+          "multiplicity" : "?",
+          "required" : false
+        } ]
+      }, {
+        "name" : "GetCorpusRevision",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusRevisionId",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "GetCorpusCase",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "corpusCaseId",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "PublishCorpusResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "corpusKey",
+          "type" : "CorpusKey",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "revision",
+          "type" : "int",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "RegisterCorpusCaseResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "caseKey",
+          "type" : "CorpusCaseKey",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "SearchCorpusRevisionsResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "items",
+          "type" : "CorpusRevision",
+          "multiplicity" : "*",
+          "required" : false
+        } ]
+      }, {
+        "name" : "GetCorpusRevisionResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "item",
+          "type" : "CorpusRevision",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "GetCorpusCaseResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "item",
+          "type" : "CorpusCase",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "ListCorpusCasesResult",
+        "kind" : "value",
+        "fields" : [ {
+          "name" : "items",
+          "type" : "CorpusCase",
+          "multiplicity" : "*",
+          "required" : false
+        } ]
+      } ],
+      "entities" : [ {
+        "name" : "CorpusRevision",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "corpusKey",
+          "type" : "CorpusKey",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "revision",
+          "type" : "int",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "name",
+          "type" : "name",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "kind",
+          "type" : "CorpusKind",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "description",
+          "type" : "description",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "sourceDigest",
+          "type" : "CorpusSourceDigest",
+          "multiplicity" : "1",
+          "required" : true
+        } ]
+      }, {
+        "name" : "CorpusCase",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "corpusRevisionId",
+          "type" : "entityid",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "caseKey",
+          "type" : "CorpusCaseKey",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "applicationPurpose",
+          "type" : "ApplicationPurpose",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "difficulty",
+          "type" : "CorpusDifficulty",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "fixtureReference",
+          "type" : "CorpusFixtureReference",
+          "multiplicity" : "1",
+          "required" : true
+        }, {
+          "name" : "expectedEvidenceReference",
+          "type" : "CorpusEvidenceReference",
+          "multiplicity" : "?",
+          "required" : false
+        }, {
+          "name" : "tags",
+          "type" : "CorpusTag",
+          "multiplicity" : "*",
+          "required" : false
+        } ]
+      } ]
+    },
+    "dependencies" : [ ]
+  }
+}

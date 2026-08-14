@@ -7,6 +7,7 @@ import org.goldenport.cncf.context.ExecutionContext
 import org.goldenport.cncf.operation.evaluation.{CorpusCandidateFact, OperationEvaluationDeliveryResult, OperationEvaluationDeliveryStatus, OperationEvaluationFact, OperationEvaluationFactId, OperationEvaluationLimitation, OperationEvaluationLimitationKind, OperationEvaluationSinkIdentity, OperationEvaluationStartFact, OperationEvaluationTerminalFact}
 import org.goldenport.cncf.spi.{SpiContract, SpiProvider, SpiSelection}
 import org.goldenport.cncf.spi.evaluation.CorpusEvaluationSink
+import org.simplemodeling.textus.corpus.CorpusComponent
 
 /*
  * Bounded, non-persistent Corpus evaluation sink for development and offline
@@ -14,7 +15,8 @@ import org.goldenport.cncf.spi.evaluation.CorpusEvaluationSink
  * persistent provider.
  *
  * @since   Jul. 23, 2026
- * @version Jul. 24, 2026
+ *  version Jul. 24, 2026
+ * @version Aug. 14, 2026
  * @author  ASAMI, Tomoharu
  */
 final class OfflineCorpusEvaluationSinkAdapter private (
@@ -73,8 +75,8 @@ final class OfflineCorpusEvaluationSinkAdapter private (
 
 object OfflineCorpusEvaluationSinkAdapter {
   val DEFAULT_MAXIMUM_FACT_COUNT: Int = 4096
-  val PROVIDER_COMPONENT = "textus-corpus"
-  val PROVIDER_INSTANCE = "offline"
+  val PROVIDER_COMPONENT: String = CorpusComponent.name
+  val PROVIDER_INSTANCE: String = "offline"
 
   def createC(
     socketcomponent: String,

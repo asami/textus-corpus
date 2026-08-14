@@ -7,6 +7,7 @@ import org.goldenport.cncf.context.{DataStoreContext, EntityStoreContext, Execut
 import org.goldenport.cncf.datastore.{DataStore, DataStoreSpace}
 import org.goldenport.cncf.entity.EntityStoreSpace
 import org.goldenport.cncf.subsystem.Subsystem
+import org.goldenport.cncf.testutil.RuntimeBindingAdmissionFixture
 import org.goldenport.configuration.{Configuration, ConfigurationTrace, ResolvedConfiguration}
 import org.goldenport.protocol.{Property, Request}
 import org.goldenport.protocol.operation.OperationResponse
@@ -18,7 +19,8 @@ import org.simplemodeling.textus.corpus.impl.{ComponentFactory, CorpusPrimaryCom
 
 /*
  * @since   Jul. 21, 2026
- * @version Jul. 27, 2026
+ *  version Jul. 27, 2026
+ * @version Aug. 14, 2026
  * @author  ASAMI, Tomoharu
  */
 final class ComponentFactorySpec extends AnyWordSpec with Matchers with GivenWhenThen {
@@ -167,10 +169,12 @@ final class ComponentFactorySpec extends AnyWordSpec with Matchers with GivenWhe
       datastore = Some(DataStoreContext(datastorespace)),
       entitystore = Some(EntityStoreContext(entitystorespace))
     ))
-    val subsystem = new Subsystem(
-      name = "textus-corpus-spec",
-      scopecontext = Some(scope),
-      configuration = ResolvedConfiguration(Configuration.empty, ConfigurationTrace.empty)
+    val subsystem = RuntimeBindingAdmissionFixture.admit(
+      new Subsystem(
+        name = "textus-corpus-spec",
+        scopecontext = Some(scope),
+        configuration = ResolvedConfiguration(Configuration.empty, ConfigurationTrace.empty)
+      )
     )
     val bundle = new ComponentFactory().create(ComponentCreate(subsystem, ComponentOrigin.Main))
     subsystem.add(bundle.participants)
