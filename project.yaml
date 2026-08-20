@@ -9,14 +9,14 @@ project:
     name: "Corpus"
     className: "CorpusComponent"
     displayName: "Textus Corpus"
-    version: "0.1.1-SNAPSHOT"
+    version: "0.1.1"
 
 build:
   scalaVersion: "3.3.8"
-  cozyVersion: "0.3.4-SNAPSHOT"
+  cozyVersion: "0.3.2.2"
   dependencies:
     compile:
-      - "org.goldenport::goldenport-cncf:0.5.2-SNAPSHOT"
+      - "org.goldenport::goldenport-cncf:0.5.2"
     test:
       - "org.scalatest::scalatest:3.2.19"
 
@@ -34,10 +34,10 @@ packaging:
       domain: "corpus-management"
     runtime:
       cncf:
-        minimum: "0.5.2-SNAPSHOT"
+        minimum: "0.5.2"
         excluded: []
         tested:
-          - "0.5.2-SNAPSHOT"
+          - "0.5.2"
 
 warehouse:
   repository_artifacts:

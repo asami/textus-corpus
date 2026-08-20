@@ -1,0 +1,27 @@
+schemaVersion: 2
+kind: car
+namespace: org.simplemodeling.textus
+id: Corpus
+artifactId: textus-corpus
+recommended: 0.1.1
+latestStable: 0.1.1
+status: active
+aliases: []
+tags: []
+terms: []
+versions:
+  - version: 0.1.1
+    channel: stable
+    status: active
+    component: org.simplemodeling.textus.Corpus
+    publishedAt: 2026-08-21T02:46:42.876123+09:00
+    file: repository/car/org/simplemodeling/textus/textus-corpus/0.1.1/textus-corpus-0.1.1.car
+    runtime:
+      cncf:
+        minimum: 0.5.2
+        excluded: []
+        tested:
+          - 0.5.2
+    checksum:
+      sha256: 4b935f98add03ab22064aecc759b84946e837c75c7fbf5a81021db5a6f87fe11
+    integrityKey: org.simplemodeling.textus:textus-corpus:0.1.1@sha256:4b935f98add03ab22064aecc759b84946e837c75c7fbf5a81021db5a6f87fe11

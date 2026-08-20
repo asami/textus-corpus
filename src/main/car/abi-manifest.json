@@ -3,7 +3,7 @@
   "component" : {
     "namespace" : "org.simplemodeling.textus",
     "id" : "Corpus",
-    "version" : "0.1.1-SNAPSHOT"
+    "version" : "0.1.1"
   },
   "abi" : {
     "version" : 1,
