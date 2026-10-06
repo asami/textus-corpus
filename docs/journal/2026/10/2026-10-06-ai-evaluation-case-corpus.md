@@ -11,3 +11,16 @@ The same case must be reusable across multiple EvaluationRuns and future Thinkin
 The evaluation orchestration, Arm management, scoring, and aggregation remain responsibilities of textus-experiment.
 
 No implementation phase is created yet. The cross-component contract should be stabilized first.
+
+
+## Environment restoration decision
+
+A corpus case must also be executable, so environment restoration is assigned to textus-corpus.
+
+The initial eligibility rule is deliberately strict: one Git repository, immediately after a commit, with a clean working tree. The EvaluationCase records the repository and exact commit. textus-corpus restores that state as a `GitCommitEnvironment` / `RestoredEnvironment`.
+
+For this first level, source files are not copied into the corpus. Git history is the authoritative source and the corpus records the information needed to reconstruct it.
+
+textus-experiment consumes the restored environment and must not implement its own Git checkout/snapshot mechanism.
+
+Working-tree diffs, multi-repository workspaces, and external resources are deferred until concrete cases require them.
